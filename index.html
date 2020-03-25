@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="btnMin" class="btn btn-default btnMin"><i class="fas fa-minus"></i></button>
+                           <input id ="qty1" type="text" class="form-control text-center qty" value="1">
+                           <button id="btnPlus" class="btn btn-default btnPlus"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$<span id="itemOnePrice">1219</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="btnMin1" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="qty2" type="text" class="form-control text-center" value="1">
+                           <button id="btnPlus1" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$<span id="itemTwoPrice">59</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$<span id="subtotal">1,278</span></h5>
+                        <h5>$<span id="tax">0</span></h5>
+                        <h5>$<span id="total">1,278</span></h5>
                      </div>
                   </div>
                </div>
@@ -77,6 +77,84 @@
          </div>
       </div>
    </section>
+
+   <script>
+      const itemOne = document.getElementById("itemOnePrice").innerText;
+      const itemOneNum = convertStr(itemOne);
+      const unitPrice1 = itemOneNum;
+      const btn1 = ["btnPlus", "btnMin", unitPrice1];
+      btnClick(btn1);
+
+      const itemTwo = document.getElementById("itemTwoPrice").innerText;
+      const itemTwoNum = convertStr(itemTwo);
+      const unitPrice2 = itemTwoNum;
+      const btn2 = ["btnPlus1", "btnMin1", unitPrice2];
+      btnClick(btn2);      
+   
+      function btnClick(btnM){
+      const btnPlus = document.getElementById(btnM[0]);
+      btnPlus.addEventListener("click", function(){
+         const plus = 1;
+         updateSpan(plus, btnM);     
+      })
+      const btnMin = document.getElementById(btnM[1]);
+      btnMin.addEventListener("click", function(){
+         const minus = -1;
+         updateSpan(minus, btnM);
+      })
+      }
+
+      function calculateTotal() {
+         const subtotal = itemOneNum + itemTwoNum;
+         const tax = 0;
+         const total = subtotal - tax;
+         document.getElementById("subtotal").innerText = subtotal;
+         document.getElementById("tax").innerText = tax;
+         document.getElementById("total").innerText = total;
+
+      }
+
+      function updateSpan(btn, btnM) {
+         if(btn1 == btnM){
+         const item = document.getElementById("qty1").value;
+         const itemNum = convertStr(item);
+         const itemQty = (itemNum + btn);
+         document.getElementById("qty1").value = itemQty;
+         
+         const itemTotal = btnM[2] * itemQty;
+         document.getElementById("itemOnePrice").innerText = itemTotal;
+         
+         console.log(itemTotal);
+         }
+         else {
+         const item = document.getElementById("qty2").value;
+         const itemNum = convertStr(item);
+         const itemQty = (itemNum + btn);
+         document.getElementById("qty2").value = itemQty;
+         
+         const itemTotal = btnM[2] * itemQty;
+         document.getElementById("itemTwoPrice").innerText = itemTotal;
+         
+         console.log(itemTotal);
+         }
+      }
+
+
+      //Calculation
+      // const itemOne = document.getElementById("itemOnePrice").innerText;
+      // const itemOneNum = convertStr(itemOne);
+      // console.log(itemOneNum);
+      // const itemTwo = document.getElementById("itemTwoPrice").innerText;
+      // const itemTwoNum = convertStr(itemTwo);
+      // console.log(itemTwoNum);
+
+      
+      
+      function convertStr(text){
+         item = parseFloat(text);
+         return item;
+      }
+   </script>
 </body>
 
 </html>
