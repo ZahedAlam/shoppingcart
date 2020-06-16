@@ -79,14 +79,12 @@
    </section>
 
    <script>
-      const itemOne = document.getElementById("itemOnePrice").innerText;
-      const itemOneNum = convertStr(itemOne);
+      const itemOneNum = convertStr(document.getElementById("itemOnePrice").innerText);
       const unitPrice1 = itemOneNum;
       const btn1 = ["btnPlus", "btnMin", unitPrice1];
       btnClick(btn1);
 
-      const itemTwo = document.getElementById("itemTwoPrice").innerText;
-      const itemTwoNum = convertStr(itemTwo);
+      const itemTwoNum = convertStr(document.getElementById("itemTwoPrice").innerText);
       const unitPrice2 = itemTwoNum;
       const btn2 = ["btnPlus1", "btnMin1", unitPrice2];
       btnClick(btn2);      
@@ -95,40 +93,42 @@
       const btnPlus = document.getElementById(btnM[0]);
       btnPlus.addEventListener("click", function(){
          const plus = 1;
-         updateSpan(plus, btnM);     
+         updateSpan(plus, btnM);
+         calculateTotal();    
       })
       const btnMin = document.getElementById(btnM[1]);
       btnMin.addEventListener("click", function(){
          const minus = -1;
          updateSpan(minus, btnM);
+         calculateTotal();
       })
       }
 
       function calculateTotal() {
-         const subtotal = itemOneNum + itemTwoNum;
-         const tax = 0;
-         const total = subtotal - tax;
+         var item1 = convertStr(document.getElementById("itemOnePrice").innerText);
+         var item2 = convertStr(document.getElementById("itemTwoPrice").innerText);
+         
+         var subtotal = item1 + item2;
          document.getElementById("subtotal").innerText = subtotal;
-         document.getElementById("tax").innerText = tax;
-         document.getElementById("total").innerText = total;
+         var tax = 0;
+         var total = subtotal - tax;
+         document.getElementById('total').innerText = total;
 
       }
 
       function updateSpan(btn, btnM) {
          if(btn1 == btnM){
-         const item = document.getElementById("qty1").value;
-         const itemNum = convertStr(item);
+         const itemNum = convertStr(document.getElementById("qty1").value);
          const itemQty = (itemNum + btn);
          document.getElementById("qty1").value = itemQty;
          
          const itemTotal = btnM[2] * itemQty;
          document.getElementById("itemOnePrice").innerText = itemTotal;
          
-         console.log(itemTotal);
+         // update sub total
          }
          else {
-         const item = document.getElementById("qty2").value;
-         const itemNum = convertStr(item);
+         const itemNum = convertStr(document.getElementById("qty2").value);
          const itemQty = (itemNum + btn);
          document.getElementById("qty2").value = itemQty;
          
@@ -139,14 +139,6 @@
          }
       }
 
-
-      //Calculation
-      // const itemOne = document.getElementById("itemOnePrice").innerText;
-      // const itemOneNum = convertStr(itemOne);
-      // console.log(itemOneNum);
-      // const itemTwo = document.getElementById("itemTwoPrice").innerText;
-      // const itemTwoNum = convertStr(itemTwo);
-      // console.log(itemTwoNum);
 
       
       
